@@ -39,7 +39,8 @@ router.post('/', (req, res) => {
   }
   db.addPost(newPost)
     .then(post => {
-      db.getPost(post[0])
+      const postNum = Number(post)
+      db.getPost(postNum)
         .then(post => {
           res.json(post)
         })
