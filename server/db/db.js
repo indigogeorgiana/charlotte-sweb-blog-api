@@ -6,7 +6,8 @@ module.exports = {
   getPosts,
   makePost,
   updatePost,
-  deletePost
+  deletePost,
+  getPostComments
 }
 
 function getPosts (testDb) {
@@ -30,4 +31,12 @@ function deletePost (id, db = knex) {
   return db('Posts')
     .where('id', id)
     .delete(id)
+}
+
+function getPostComments (id, testDb) {
+  const db = testDb || knex
+  return db('Comments')
+    .join('Posts', 'Comments.post_id', 'Posts.id')
+    .where('Posts.id', id)
+    .select('Comments.comment')
 }

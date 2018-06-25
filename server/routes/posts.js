@@ -50,4 +50,15 @@ router.delete('/', (req, res) => {
     })
 })
 
+router.get('/:id/comments', (req, res) => {
+  const id = req.params.id
+  db.getPostComments(id)
+    .then(comments => {
+      res.json({comments: comments})
+    })
+    .catch(err => {
+      res.status(500).send('Database error: ' + err.message)
+    })
+})
+
 module.exports = router
