@@ -61,4 +61,17 @@ router.get('/:id/comments', (req, res) => {
     })
 })
 
+router.post('/:id/comments', (req, res) => {
+  const comment = req.body
+  comment.post_id = req.params.id
+  console.log(comment)
+  db.makePostComment(comment)
+    .then(comments => {
+      res.json({comments: comments})
+    })
+    .catch(err => {
+      res.status(500).send('Database error: ' + err.message)
+    })
+})
+
 module.exports = router

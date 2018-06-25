@@ -7,7 +7,8 @@ module.exports = {
   makePost,
   updatePost,
   deletePost,
-  getPostComments
+  getPostComments,
+  makePostComment
 }
 
 function getPosts (testDb) {
@@ -38,5 +39,10 @@ function getPostComments (id, testDb) {
   return db('Comments')
     .join('Posts', 'Comments.post_id', 'Posts.id')
     .where('Posts.id', id)
-    .select('Comments.comment')
+    .select('Comments.comment', 'comments.date_posted')
+}
+
+function makePostComment (comment, db = knex) {
+  return db('Comments')
+    .insert(comment)
 }
