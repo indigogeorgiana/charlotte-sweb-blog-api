@@ -3,7 +3,7 @@ import request from 'superagent'
 export function getPosts () {
   return request.get('/v1/posts')
     .then(data => {
-      const posts = data.body
+      const posts = data.body.posts
       return posts.map(post => {
         return Object.assign(
           {},
