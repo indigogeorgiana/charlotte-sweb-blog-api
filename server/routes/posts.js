@@ -22,8 +22,11 @@ router.post('/', (req, res) => {
   const title = req.body.title
   const newPost = {title, paragraphs}
   db.addPosts(newPost)
-    .then(post => {
-      res.status(200).end()
+    .then(newId => {
+      db.getPost(newId)
+        .then(post => {
+          res.json({post: post})
+        })
     })
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
@@ -41,6 +44,17 @@ router.put('/:id', (req, res) => {
         .then(post => {
           res.json({post: post})
         })
+    })
+    .catch(err => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
+router.delete('/:id', (req, res) => {
+  const id = req.params.id
+  db.deletePost(id)
+    .then(() => {
+      res.status(200).end()
     })
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)

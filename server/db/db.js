@@ -6,7 +6,8 @@ module.exports = {
   getPosts,
   addPosts,
   updatePost,
-  getPost
+  getPost,
+  deletePost
 }
 
 function getPosts (testDb) {
@@ -26,8 +27,14 @@ function updatePost (oldPost, testDb) {
     .update(oldPost)
 }
 
-function  getPost (id, testDb) {
+function getPost (id, testDb) {
   const db = testDb || knex
   return db('Posts')
     .where('id', id).select()
+}
+
+function deletePost (id, testDb) {
+  const db = testDb || knex
+  return db('Posts')
+    .where('id', id).del()
 }
