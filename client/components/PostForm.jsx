@@ -49,7 +49,7 @@ class PostForm extends React.Component {
       addPost(this.state)
         .then((newPost) => {
           this.props.fetchPosts()
-          .then(() => this.props.history.push(`/posts/${newPost.id}`))
+            .then(() => this.props.history.push(`/posts/${newPost.id}`))
         })
         .catch(err => this.setState({ errorMessage: err.message }))
     }
@@ -98,4 +98,3 @@ class PostForm extends React.Component {
 }
 
 export default PostForm
-

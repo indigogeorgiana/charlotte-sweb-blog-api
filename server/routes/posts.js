@@ -32,10 +32,17 @@ router.get('/:id', (req, res) => {
 
 // add new post
 router.post('/', (req, res) => {
-  const newPost = req.body
+  const newPost = {
+    title: req.body.title,
+    date_created: req.body.date_created,
+    paragraphs: JSON.stringify([req.body.paragraphs])
+  }
   db.addPost(newPost)
     .then(post => {
-      res.status(200).end()
+      db.getPost(post[0])
+        .then(post => {
+          res.json(post)
+        })
     })
     .catch(err => {
       res.status(500).send('errrrrrrrrr: ' + err.message)
@@ -44,10 +51,18 @@ router.post('/', (req, res) => {
 
 // update existing post
 router.put('/:id', (req, res) => {
-  const updatedPost = req.body
+  const updatedPost = {
+    id: Number(req.params.id),
+    title: req.body.title,
+    date_created: req.body.date_created,
+    paragraphs: JSON.stringify([req.body.paragraphs])
+  }
   db.updatePost(updatedPost)
-    .then(post => {
-      res.render('/' + post.id)
+    .then(() => {
+      db.getPost(updatedPost.id)
+        .then(post => {
+          res.json(post)
+        })
     })
     .catch(err => {
       res.status(500).send('errrrrrrrrr: ' + err.message)
