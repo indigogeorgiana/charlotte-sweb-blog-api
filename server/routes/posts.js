@@ -31,14 +31,16 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
+  const {id, title} = req.body
   const paragraphs = JSON.stringify([req.body.paragraphs])
-  const title = req.body.title
-  const id = req.body.id
   const oldPost = {id, title, paragraphs}
 
   db.updatePost(oldPost)
-    .then(post => {
-      res.status(200).end()
+    .then(() => {
+      db.getPost(oldPost.id)
+        .then(post => {
+          res.json({post: post})
+        })
     })
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
