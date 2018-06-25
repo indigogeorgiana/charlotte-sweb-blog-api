@@ -10,4 +10,3 @@ server.use('/v1/posts', posts)
 server.use('/v1/comments', comments)
 
 module.exports = server
-
