@@ -7,5 +7,14 @@ const router = express.Router()
 
 router.use(bodyParser.json())
 
-module.exports = router
+router.get('/', (req, res) => {
+  db.getPosts()
+    .then(posts => {
+      res.json({posts: posts})
+    })
+    .catch(err => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
 
+module.exports = router
