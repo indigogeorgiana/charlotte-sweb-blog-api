@@ -41,7 +41,26 @@ router.post('/', (req, res) => {
     })
 })
 
+router.put('/', (req, res) => {
+  const updatedPost = req.body
+  db.updatePost(updatedPost)
+    .then(user => {
+      res.status(200).end()
+    })
+    .catch(err => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
 
-
+router.deletePost('/:id', (req, res) => {
+  const id = Number(req.params.id)
+  db.deletePost(id)
+    .then(user => {
+      res.status(200).end()
+    })
+    .catch(err => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
 
 module.exports = router
