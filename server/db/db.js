@@ -4,7 +4,8 @@ const knex = require('knex')(config)
 
 module.exports = {
   getPosts,
-  addPosts
+  addPosts,
+  updatePost
 }
 
 function getPosts (testDb) {
@@ -15,4 +16,11 @@ function getPosts (testDb) {
 function addPosts (newPost, testDb) {
   const db = testDb || knex
   return db('Posts').insert(newPost)
+}
+
+function updatePost (oldPost, testDb) {
+  const db = testDb || knex
+  return db('Posts')
+    .where('id', oldPost.id)
+    .update(oldPost)
 }
