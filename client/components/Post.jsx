@@ -87,4 +87,3 @@ Post.defaultProps = {
 }
 
 export default Post
-

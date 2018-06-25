@@ -13,19 +13,19 @@ module.exports = {
 // get all posts
 function getPosts () {
   const db = knex
-  return db('posts').select()
+  return db('posts').select('id', 'title', 'date_created as dateCreated', 'paragraphs')
 }
 
 // get individual post
 function getPost (id) {
   const db = knex
-  return db('posts').where('id', id).select()
+  return db('posts').where('id', id).select('id', 'title', 'date_created as dateCreated', 'paragraphs')
 }
 
 // add new post
 function addPost (newPost) {
   const db = knex
-  return db('posts').insert(newPost)
+  return db('posts').insert(newPost).select('id', 'title', 'date_created as dateCreated', 'paragraphs')
 }
 
 // update existing post
