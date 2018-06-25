@@ -21,7 +21,18 @@ router.post('/', (req, res) => {
   const post = req.body
   db.makePost(post)
     .then(posts => {
-      res.json({posts: posts})
+      res.status(200).end()
+    })
+    .catch(err => {
+      res.status(500).send('Database error: ' + err.message)
+    })
+})
+
+router.put('/', (req, res) => {
+  const post = req.body
+  db.updatePost(post)
+    .then(posts => {
+      res.status(200).end()
     })
     .catch(err => {
       res.status(500).send('Database error: ' + err.message)
