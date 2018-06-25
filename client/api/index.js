@@ -43,16 +43,16 @@ export function updatePost (post) {
 
 export function deletePost (postId) {
   return request.del(`/v1/posts/${postId}`)
-  .then(data => {
-    const returnedPost = data.body
-    return returnedPost
-  })
-  .catch(err => {
-    throw Error('Cannot DELETE a Post!')
-  })
+    .then(data => {
+      const returnedPost = data.body
+      return returnedPost
+    })
+    .catch(err => {
+      throw Error('Cannot DELETE a Post!')
+    })
 }
 
-export function getCommentsByPostId(postId) {
+export function getCommentsByPostId (postId) {
   return request.get(`/v1/posts/${postId}/comments`)
     .then(data => {
       const returnedComments = data.body
@@ -63,7 +63,7 @@ export function getCommentsByPostId(postId) {
     })
 }
 
-export function addCommentByPostId(postId, comment) {
+export function addCommentByPostId (postId, comment) {
   return request.post(`/v1/posts/${postId}/comments`)
     .send(comment)
     .then(data => {
@@ -89,11 +89,11 @@ export function updateComment (comment) {
 
 export function deleteComment (commentId) {
   return request.del(`/v1/comments/${commentId}`)
-  .then(data => {
-    const returnedComment = data.body
-    return returnedComment
-  })
-  .catch(err => {
-    throw Error('Cannot DELETE Comment!')
-  })
+    .then(data => {
+      const returnedComment = data.body
+      return returnedComment
+    })
+    .catch(err => {
+      throw Error('Cannot DELETE Comment!')
+    })
 }
